@@ -1,0 +1,81 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<main>
+    <div class="sub2-header">
+        <div class="model">           
+                <div class="modelcontainer">
+                    <div class="title">Model Registration</div>
+                    <div class="content">
+                        <form method="POST" action="{% url 'insertmod' %}">
+                            {% csrf_token %}
+                            <div class="user-details">
+                                <div class="input-box">
+                                    <span class="details">Model Number</span>
+                                    <input type="text" placeholder="Enter the Model Number" name="model_id" required>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Cloth Type</span>
+                                    <input type="text" placeholder="Shirt, Trouser, Frock" name="cloth_type" required>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Shoulder Width</span>
+                                    <input type="text" value="-" placeholder="Enter measurement in cm"  name="sh_width" >
+                                </div>
+                               
+                                <div class="input-box">
+                                    <span class="details">Chest</span>
+                                    <input type="text" value="-" placeholder="Enter measurement in cm" name="chest" >
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Length</span>
+                                    <input type="text" value="-" placeholder="Enter measurement in cm" name = "length" >
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Width/Waist</span>
+                                    <input type="text"  value="-" placeholder="Enter measurement in cm" name = "width" >
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Sleeve Length</span>
+                                    <input type="text" value="-" placeholder="Enter measurement in cm" name="sl_length" >
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Neck Width</span>
+                                    <input type="text" value="-" placeholder="Enter measurement in cm" name="nk_width" >
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Color RGB</span>
+                                    <input type="text" placeholder="255 255 255" name="c_rgb" required>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Color HTML</span>
+                                    <input type="text" placeholder="#fffef" name="c_html" required>
+                                </div>
+                                
+                                  
+                                <div class="input-box">
+                                    <span class="details"></span>
+                                    <!-- <input type="text" placeholder="Enter your User ID" required> -->
+                                </div>           
+                                <div class="modelbutton">
+                                    <input type="submit" value="Start Session"> 
+                                </div>                     
+                    
+                            </div>
+                            <p>*This model number will apply automatically to the session.</p>
+                        </form>
+                        
+                    </div>
+             
+            </div>
+
+            
+        </div>
+    </div>
+</main>
+
+
+{% endblock content %}

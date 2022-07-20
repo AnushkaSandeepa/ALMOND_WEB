@@ -1,0 +1,151 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="sub2-header">
+    <section class="stream">
+        <div class="header-title">
+            <!-- <h1>Capture Your Measurements Here </h1> -->
+        </div> 
+            
+        <div class="row">
+            <div class="stream-col">
+                
+                <div class="sub-titles" id="detailsub">Video Stream</div>
+                <img class="myCanvas" width="640" height="480"  id="imgCanvas1" src = "{% url 'video_feed' %}">
+                <canvas id="zoom" width="300" height="240" style="position:absolute; top:0; left:0; display:none"></canvas>
+                    <div class="container item1">
+                        <div class="btn-row">
+                            <div >
+                             <a class="hero4-btn" id="he4btn-1" type="submit" href="{% url 'sbinary' %}" >Binary Scale</a>
+                             <a class="hero4-btn" id="he4btn-1" type="submit" href="{% url 'stream' %}" >Exit</a>
+                             <!-- <button class="hero4-btn"  id="he4btn-1" onclick="javascript:window.close();">Exit</button> -->
+                          </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="stream-col">
+                <div class="detail1-row">
+                    <div class="sub-titles" id="detailsub">Session Details</div>
+                    
+                        <table class = "detailtable" id="dtb">
+                            <tr>
+                              <th><div class="sess-details"><label for="">Session ID</label></div></th>
+                              <td><div class="sess-detailsr"><label for="">{{ session_id }}</label></div></td>
+                              <th><div class="sess-details"><label for="">User ID</label></div></th>
+                              <td><div class="sess-detailsr"><label for="">{{ invest_id }}</label></div></td>
+                            </tr>
+                            <tr>
+                              <th><div class="sess-details"> <label for="">Date</label></div></th>
+                              <td><div class="sess-detailsr"><label for="">{{ date }}</label></div></td>
+                              <th><div class="sess-details"><label for="">Time</label></div></th>
+                              <td><div class="sess-detailsr"><label for="">{{ time }}</label></div>  </td>
+                            </tr>
+                            <tr>
+                              <th><div class="sess-details"><label for="">Investigator</label></div></th>
+                              <td><div class="sess-detailsr"><label for="">{{ investigator }}</label></div></td>
+                              <th><div class="sess-details"><label for="">Country</label></div></th>
+                              <td><div class="sess-detailsr"><label for="">{{ country }}</label></div></td>
+                            </tr>
+                            <tr>
+                                <th><div class="sess-details"><label for="">Model No</label></div></th>
+                                <td><div class="sess-detailsr"><label for="">{{ model_id }}</label></div></td>
+                                <th><div class="sess-details"><label for="">Cloth type</label></div></th>
+                                <td><div class="sess-detailsr"><label for="">{{ cloth_type }}</label></div></td>
+                            </tr>
+                            <tr>
+                                <th><div class="sess-details"><label for="">Sholder W.</label></div></th>
+                                <td><div class="sess-detailsr"><label for="">{{ sh_width }}</label></div></td>
+                                <th><div class="sess-details"><label for="">Width</label></div></th>
+                                <td><div class="sess-detailsr"><label for="">{{ width }}</label></div> </td>
+                            </tr>
+                            <tr>
+                                <th><div class="sess-details"><label for="">Length</label></div></th>
+                                <td><div class="sess-detailsr"><label for="">{{ length }}</label></div></td>
+                                <th><div class="sess-details"><label for="">color(RGB)</label></div></th>
+                                <td><div class="sess-detailsr"><label for="">{{ c_rgb }}</label></div></td>
+                            </tr>
+                            <tr>
+                                <th> <div class="sess-details"><label for="">color(HTML)</label></div></th>
+                                <td><div class="sess-detailsr"><label for="">{{ c_html }}</label></div></td>
+                                <th></th>
+                                <td></td>
+                            </tr>
+                          </table>
+                        
+                      
+                    
+                    
+                </div>
+                <div class="detail2-row">
+                    <div class="sub-titles" id="detailsub">Measurement Details
+                        <div class="subsub-titles" >Take Measurements 
+                            <div class="row">
+                                <div class="sdetail-col">
+                                    <div class="sess-details" id ="subtopic"><label for="">Place</label></div>
+                                    
+                                </div>
+                                <div class="sdetail-col">
+                                    <div class="sess-details"><label for="place"></label></div>
+                                    <select id="place" >
+                                        <option value="">Choose place</option >
+                                        <option value="shirt width">shirt width</option>
+                                        <option value="hirt length">shirt length</option>
+                                        <option value="sleev width">sleev width</option>
+                                        <option value="chest width">chest width</option>
+                                        <option value="other">other</option>
+                                    </select>
+                                    
+                                </div>
+                                <div class="sdetail-col">
+                                    <div class="sess-details" id ="subtopic"><label for="">Distance</label></div>
+                                    
+                                </div>
+                                <div class="sdetail-col">
+                                    <div class="sess-details"id="distbox" ><input type="text"></div>
+                                    
+                                </div>
+                                <div class="sdetail-col">
+                                    <div class="hero5-btn" >
+                                        <input type="submit" value="ADD"> 
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div class="subsub-titles" >Measured Details
+                            
+                                <table class="picktable">
+                                    <tr class = "theader">
+                                        <th>Hide</th>
+                                        <th>  Place  </th>
+                                        <th>  Distance (cm)  </th>
+                                        <th>  Delete  </th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" ></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                  </table>
+                            
+                        
+                        </div>
+
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+</div>
+<!-- Internal Style -->
+<script>
+    
+</script>
+{% endblock content %}

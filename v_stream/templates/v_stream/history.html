@@ -1,0 +1,60 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<main>
+    <div class="sub2-header">
+      
+        <div class="header-title">
+            <h1>History of Measurements</h1>
+        </div>
+        <table class="histable" >
+            <tr class = "theader">
+
+              <td >Session ID</td>
+              <td >Model Number</td>
+              <td >Date</td>
+              <td >Investigator</td>
+              <td >Location</td>
+              <td >View</td>
+            </tr>
+            <tr>
+              <td>1dd56</td>
+              <td>1ff4</td>
+              <td>2022/05/24</td>
+              <td>Mr.Priyanath Ariyawasha</td>
+              <td>India</td>
+              <td>
+                <div class = "historycont">
+
+                  <button  class="hero2-btn" onclick="openPopup()" >Details</button>
+                  <div class = "popupdetails" id="popup2" >
+                    <img  src="{% static 'images/ss.png' %}">
+                    
+                    <button type="button" onclick="closePopup()" >OK</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        
+    </div>
+
+    
+
+</main>
+<!-- Internal Style -->
+<script>
+  let popupdetails = document.getElementById("popup2");
+
+  function openPopup(){
+  popupdetails.classList.add("open-popupdetails");
+  }
+  function closePopup(){
+    popupdetails.classList.remove("open-popupdetails");
+  }
+</script>
+
+{% endblock content %}

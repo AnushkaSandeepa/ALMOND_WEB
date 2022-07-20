@@ -1,0 +1,57 @@
+<!-------- footer ---------->
+
+{% load static %}
+
+<nav class="navbar">
+    <a href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}"></a>
+    <div class="icon">
+        <h2 class="logo">METEN</h2> 
+    </div>
+    <div class="nav-links" id="navLinks">  
+        <i class="fa fa-close" onclick="hideMenu()"></i>
+        <ul>
+            <li><a href="{% url 'home' %}">HOME</a></li>
+            <li><a href="{% url 'features' %}">FEATURES</a></li>
+            <li><a href="{% url 'about' %}">ABOUT</a></li>
+            <li><a href="{% url 'contact' %}">CONTACT</a></li>
+            <li><a href="{% url 'contact' %}">SIGNUP</a></li>
+        </ul>
+    </div>
+    <i class="fa fa-bars" onclick="showMenu()"></i>
+</nav>
+
+<!----JavaScript for toggle menu---->
+<script>
+    var navLinks = document.getElementById("navLinks");
+
+    function showMenu() {
+        navLinks.style.right = "0";
+    }
+
+    function hideMenu() {
+        navLinks.style.right = "-200px";
+    }
+
+    function getFullscreenElement(){
+        return document.fullscreenElement
+          || document.webkitFullscreenElement
+          || document.mozFullscreenElement
+          || document.msFullscreenElement
+    }
+
+    function toggleFullscreen(){
+        if(getFullscreenElement()){
+            document.exitFullscreen();
+        } else {
+            document.documentElement.requestFullscreen().catch(console.log);
+        }
+    }
+    document.addEventListener("dblclick", () => {
+            toggleFullscreen();
+    });
+    document.addEventListener("fullscreenchange", () => {
+        console.log("full screen changed!");
+    } );
+
+
+</script> 

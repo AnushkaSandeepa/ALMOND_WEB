@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+<section class="about-us">
+    <div class="aboutus-title">
+        <h1>About Us</h1>
+    </div>
+    <div class="row">
+        <div class="about-col">
+            <h1>We are the world's Solution Supplying Company</h1>     
+            <p>Escarta Private Limited is an Award Winning technology company working with global Enterprises, SME’s and forward-thinking Start-Ups as their end-to-end solution
+                partners for custom-tailored software, web and mobile apps. Through a combination of smart planning, design thinking approach,
+                and the latest technologies, we help our clients to accelerate their business efficiency.
+                
+                </p>
+            <a href="https://www.youtube.com/c/NSBMGreenUniversityTown" class="hero-btn red-btn">EXPOLER NOW</a>
+        </div>
+        <div class="about-col">
+            <img src="{% static 'images/banner2.jpg' %}">
+        </div>
+    </div>    
+</section>
+{% endblock content %}

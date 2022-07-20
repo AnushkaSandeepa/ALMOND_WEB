@@ -1,0 +1,417 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="{% static 'js/stream.js' %}"></script> -->
+
+<div class="sub2-header">
+    <section class="stream">
+        <div class="header-title">
+            <!-- <h1>Capture Your Measurements Here </h1> -->
+        </div> 
+            
+        <div class="row">
+            <div class="stream-col">                
+                <div class="sub-titles" id="detailsub"> Video Stream</div>
+                      <!-- <img class="img-block" src="{% static 'images/tshirt.jpg' %}"> -->
+
+                    <canvas class="myCanvas" width="640" height="480"  id="imgCanvas1"  onclick="draw(event)"></canvas>
+                     
+                    <!-- <img class="stream" id="imgCanvas1"  src = "{% url 'video_feed' %}"> -->
+                    <!-- <canvas id="zoom" width="300" height="240" style="position:absolute; top:0; left:0; display:none"></canvas> -->
+
+                        <table class = "visual" id="vtb">
+                            <tr>
+                              <th>
+                                <div class="sess-details"><h4>X <i>(in cm)</i></h4></div>
+                              </th>
+                              <td>
+                                <div class="sess-detailsr"><h2 id="x1" style="font-weight: bold">0cm</h2></div>
+                              </td>
+                              <th>
+                                <div class="sess-details"><h4>Y <i>(in cm)</i> </h4></div>
+                              </th>
+                              <td>
+                                <div class="sess-detailsr"><h2 id="y1" style="font-weight: bold">0cm</h2></div>
+                            </td>
+                            </tr>
+                            
+                          </table>
+                    <div class="container item1">
+                        <div class="container btns">
+                            <div class="row">
+                                <a class="hero4-btn" id="he4btn-1" href="{% url 'sgray' %}" >GRAY SCALE</a>
+                                <a class="hero4-btn" id="he4btn-2" href="{% url 'sbinary' %}" >BINARY</a>
+                             <a class="hero4-btn" id="he4btn-3" href="{% url 'zoom' %}" >ZOOM</a>
+                             <a class="hero4-btn" id="he4btn-4" href="{% url 'form' %}" >AUTO</a>
+                          </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="stream-col">
+                <div class="detail1-row">
+                        <div class="sub-titles" id="detailsub">Session Details</div>
+                    
+                        <table class = "detailtable" id="dtb">
+                            <tr>
+                              <th><div class="sess-details" ><label for="">Session ID</label></div></th>
+                              <td><div class="sess-details" id="s_id"><label for="">{{ session_id }}</label></div></td>
+                              <th><div class="sess-details"><label for="">User ID</label></div></th>
+                              <td><div class="sess-details"><label for="">{{ invest_id }}</label></div></td>
+                            </tr>
+                            <tr>
+                              <th><div class="sess-details" id ="what"> <label for="">Date</label></div></th>
+                              <td><div class="sess-details" id ="passdata"><label for="">{{ date }}</label></div></td>
+                              <th><div class="sess-details" id ="what"><label for="">Time</label></div></th>
+                              <td><div class="sess-details" id ="passdata"><label for="">{{ time }}</label></div>  </td>
+                            </tr>
+                            <tr>
+                              <th><div class="sess-details"><label for="">Investigator</label></div></th>
+                              <td><div class="sess-details"><label for="">{{ investigator }}</label></div></td>
+                              <th><div class="sess-details"><label for="">Country</label></div></th>
+                              <td><div class="sess-details"><label for="">{{ country }}</label></div></td>
+                            </tr>
+                            <tr>
+                                <th><div class="sess-details"><label for="">Model No</label></div></th>
+                                <td><div class="sess-details"><label for="">{{ model_id }}</label></div></td>
+                                <th><div class="sess-details"><label for="">Cloth type</label></div></th>
+                                <td><div class="sess-details"><label for="">{{ cloth_type }}</label></div></td>
+                            </tr>
+                            <tr>
+                                <th><div class="sess-details"><label for="">Sholder Width</label></div></th>
+                                <td><div class="sess-details"><label for="">{{ sh_width }}</label></div></td>
+                                <th><div class="sess-details"><label for="">Chest</label></div></th>
+                                <td><div class="sess-details"><label for="">{{ chest }}</label></div> </td>
+                            </tr>
+                            <tr>
+                                <th><div class="sess-details"><label for="">Length</label></div></th>
+                                <td><div class="sess-details"><label for="">{{ length }}</label></div></td>
+                                <th><div class="sess-details"><label for="">Width</label></div></th>
+                                <td><div class="sess-details"><label for="">{{ width }}</label></div> </td>
+                            </tr>
+                            <tr>
+                                <th><div class="sess-details"><label for="">Sleeve Length</label></div></th>
+                                <td><div class="sess-details"><label for="">{{ sl_length }}</label></div></td>
+                                <th><div class="sess-details"><label for="">Neck Width</label></div></th>
+                                <td><div class="sess-details"><label for="">{{ nk_width }}</label></div> </td>
+                            </tr>
+                            <tr>
+                                <th><div class="sess-details"><label for="">Color (RGB)</label></div></th>
+                                <td><div class="sess-details"><label for="">{{ c_rgb }}</label></div></td>
+                                <th> <div class="sess-details"><label for="">Color (HTML)</label></div></th>
+                                <td><div class="sess-details"><label for="">{{ c_html }}</label></div></td>
+                            </tr>
+                        </table>                
+                </div>
+                <div class="detail2-row">
+                    <div class="sub-titles" id="detailsub">Measurement Details
+                        <div class="subsub-titles" ><h2>Take Measurements </h2>
+                            <div class="row">
+                                
+                                    {% csrf_token %}
+                                    <table class = "detailtable" id="mtb">
+                                        <tr>
+                                            <th><div class="sess-details"><label for="">Place</label></div></th>
+                                            <td><div class="sess-detailsr">
+                                                <select id="place" >
+                                                    <option value="">Choose place</option >
+                                                    <option value="shirt width">shirt width</option>
+                                                    <option value="hirt length">shirt length</option>
+                                                    <option value="sleev width">sleev width</option>
+                                                    <option value="chest width">chest width</option>
+                                                    <option value="other">other</option>
+                                                </select></div></td>
+                                            <th><div class="sess-details"><label for="">Distance</label></div></th>
+                                            <td><div class="sess-detailsr"><h1 id="x2" >0cm</h1></div></td>
+                                            <td><div class="hero5-btn" >
+                                                <button id="tupdatebtn">Add</button> </div> </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                               
+                            </div>
+                        </div>
+                        <div class="subsub-titles" >
+                            
+                                <table class="picktable">
+                                    <tr class = "theader">
+                                        <th style="width:20px ;">Hide</th>
+                                        <th style="width:200px ;">  Measurement ID  </th>
+                                        <th style="width:200px ;">  Place  </th>
+                                        <th>  Distance (cm)  </th>
+                                        <th>  Delete  </th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" ></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                  </table>
+                        </div>
+                        <hr>
+                        <div class="subsub-titles" ><h2>Colour Pick </h2>
+                            <div class="row">   
+                                <table class = "detailtable" id="mtb">
+                                    <tr>
+                                      <th><div class="sess-details"><label for="">Tool</label></div></th>
+                                      <th><div class="sess-details"><label for="">RGB</label></div></th>
+                                      <td><div class="sess-detailsr"><input type="text" placeholder="255, 255, 255" name="c_rgb" ></div></td>
+                                      <th><div class="sess-details"><label for="">HTML</label></div></th>
+                                      <td><div class="sess-detailsr"><input type="text" placeholder="#fffff" name="c_rgb" ></div></td>
+                                      
+                                    </tr>
+                                </table>
+                            </div>
+                        
+                        </div>
+
+                    </div>
+                    <button type = "submit" class="hero2-btn" onclick="openPopup()" >END SESSION</button>
+                    <div class = "popup" id="popup1">
+                        <img src="{% static 'images/tick.png' %}">
+                        <h2>Thank You !</h2>
+                        <p>Your session has been successfully ended.</p>
+                        <button type="button" onclick="closePopup()" >OK</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+</div>
+<!-- Internal script -->
+<script>
+    let popup = document.getElementById("popup1");
+
+    function openPopup(){
+    popup.classList.add("open-popup");
+    }
+    function closePopup(){
+       window.location.href = "{% url 'features' %}" 
+    }
+</script>
+<script type="text/javascript">
+    
+    var canvas = document.getElementById("imgCanvas1");
+    var context = canvas.getContext("2d");
+    let counter = 0;
+    var counter2 = 0;
+    let X1 = 0,Y1 = 0,X2 = 0,Y2 = 0,result = 0;
+
+//section to get the coordinates of the circle
+function getMousePosition(canvas, event) {
+    if(counter == 1){
+    context.clearRect(0,0,640,480);
+    let rect = canvas.getBoundingClientRect();
+    X1 = Math.round(event.clientX - rect.left);
+    Y1 = Math.round(event.clientY - rect.top);
+
+    console.log("x1: " + X1,"&&", "y1: " + Y1);
+
+    }
+    else if(counter == 2){
+    let rect = canvas.getBoundingClientRect();
+    
+    X2 = Math.round(event.clientX - rect.left - X1);
+    Y2 = Math.round(event.clientY - rect.top - Y1);
+    X2=X2+X1;
+    Y2=Y2+Y1;
+    console.log("x2: " + X2,"&&","y2: " + Y2);
+        $.ajax({
+            method: "POST",
+            url: "{% url 'tempmeasure' %}",
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                "X-Requested-With": "XMLHttpRequest"
+            },
+            contentType: "application/json",
+            dataType: 'json',
+            data: JSON.stringify({X1:X1,Y1:Y1,X2:X2,Y2:Y2}),
+            success: function(data) {
+                console.log('success!!!')
+                console.log(data)
+                result = data
+                
+                document.getElementById("x2").innerHTML = data.distance.toFixed(3);
+                //context.font = "30px Comic Sans MS";
+                //console.log("result = "+result);
+                //context.fillText(result,30,50);
+                //addRow(X1,Y1,X2,Y2,result)
+
+            },
+            error: function(jqXhr, textStatus, errorMessage){
+            console.log("Error: ", errorMessage);},
+            })
+
+    DrawDottedLine(X1,X2,Y1,Y2,result);
+    
+
+    }else if(counter == 3){
+
+
+        context.clearRect(0,0,640,480);
+           //clears the previous circle
+
+
+        return false;
+    }
+}
+
+
+
+
+let canvasElem = document.querySelector("canvas");
+
+canvasElem.addEventListener("mousedown", function (e) {
+    counter++;
+    getMousePosition(canvasElem, e);
+});
+
+//section to draw dashed line
+function DrawDottedLine(a1,a2,b1,b2,result){
+  var c = document.getElementById("imgCanvas1");
+  var ctx = c.getContext("2d");
+
+    if (ctx.setLineDash !== undefined) {
+        ctx.setLineDash([5, 10]);
+    }
+    if (ctx.mozDash !== undefined) {
+        ctx.mozDash = [5, 10];
+    }
+    ctx.beginPath();
+    ctx.lineWidth = "2";
+    ctx.strokeStyle = "blue";
+    ctx.moveTo(a1, b1);
+    ctx.lineTo(a2, b2);
+    ctx.stroke();
+}
+
+//section to draw the circle
+   function draw(e) {
+
+    var canvas = document.getElementById("imgCanvas1");
+    var context = canvas.getContext("2d");
+    var rect = canvas.getBoundingClientRect();
+    var posx = e.clientX - rect.left;
+    var posy = e.clientY - rect.top;
+    if(counter!=3){
+    context.fillStyle = "#0000FF"; // to change colour of circle
+    context.beginPath();
+    context.arc(posx, posy, 10, 0, 2 * Math.PI);  // to change size of circle
+    context.fill();
+    }else if(counter == 3){
+        counter = 0;
+    }
+    console.log("counter = "+counter);
+}
+
+    function drawcircle(x,y) {
+
+    context.fillStyle = "#0000FF"; // to change colour of circle
+    context.beginPath();
+    context.arc(x, y, 10, 0, 2 * Math.PI);  // to change size of circle
+    context.fill();
+}
+
+//get table with values stored
+function addRow(a, b, c, d, e) {
+
+          var table = document.getElementById("myTableData");
+          var rowCount = table.rows.length;
+          var row = table.insertRow(rowCount);
+
+          row.insertCell(0).innerHTML= '<button class="btn" style="background-color: red" type="button" value = "Delete" onClick="Javacsript:deleteRow(this)"><i class="fa fa-times"></i></button>';
+          row.insertCell(1).innerHTML= '<button  class="btn"  style="background-color: lawngreen" type="button" value = "Select" onClick="Javacsript:selectRow(this)"><i class="fa fa-check"></i></button>';
+          row.insertCell(2).innerHTML= a;
+          row.insertCell(3).innerHTML= b;
+          row.insertCell(4).innerHTML= c;
+          row.insertCell(5).innerHTML= d;
+          row.insertCell(6).innerHTML= e;
+      }
+
+      function deleteRow(obj) {
+
+      var index = obj.parentNode.parentNode.rowIndex;
+      var table = document.getElementById("myTableData");
+      table.deleteRow(index);
+  }
+
+      function selectRow(obj){
+      var index = obj.parentNode.parentNode.rowIndex;
+      var table = document.getElementById("myTableData");
+      var tableData = [];
+      // LOOP THROUGH EACH ROW OF THE TABLE AFTER HEADER.
+        for (i = index; i < table.rows.length; i++) {
+
+      // GET THE CELLS COLLECTION OF THE CURRENT ROW.
+        var objCells = table.rows.item(i).cells;
+
+      // LOOP THROUGH EACH CELL OF THE CURENT ROW TO READ CELL VALUES.
+        for (var j = 0; j < objCells.length; j++) {
+            tableData.push(objCells.item(j).innerHTML);
+        }
+      }
+      context.clearRect(0,0,640,480);
+      drawcircle(tableData[2],tableData[3]);
+      drawcircle(tableData[4],tableData[5]);
+      DrawDottedLine(tableData[2],tableData[4],tableData[3],tableData[5],tableData[6]);
+      console.log((parseInt(tableData[3])+parseInt(tableData[5])));
+      result = tableData[6]
+      context.font = "30px Comic Sans MS";
+      console.log("result = "+result);
+      context.fillText(result,30,50);
+    }
+
+
+//Get realtime position of second cordinate and measurement
+canvas.addEventListener("mousemove", function(e) {
+    var cRect = canvas.getBoundingClientRect();              // Gets the CSS positions along with width/height
+    var canvasX = Math.round(e.clientX - cRect.left - X1);   // Subtract the 'left' of the canvas from the X/Y
+    var canvasY = Math.round(e.clientY - cRect.top - Y1);    // positions to get make (0,0) the top left of the
+    document.getElementById("x1").innerHTML = canvasX;
+    document.getElementById("y1").innerHTML = canvasY;
+
+    let measure = Math.round(getDistance(X1,Y1,(parseInt(canvasX+X1)),(parseInt(canvasY+Y1))));
+    //document.getElementById("x2").innerHTML = measure;
+});
+
+let elementbtn = document.getElementById("tupdatebtn")
+elementbtn.addEventListener("click", function() {
+
+    let place = document.getElementById("place").value
+    let session_id = document.getElementById("s_id").textContent
+
+    $.ajax({
+        method: "POST",
+        url: "{% url 'insertmeasure' %}",
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            "X-Requested-With": "XMLHttpRequest"
+        },
+        contentType: "application/json",
+        dataType: 'json',
+        data: JSON.stringify({X1:X1,Y1:Y1,X2:X2,Y2:Y2,distance:result.distance.toFixed(3),place:place,session_id:session_id}),
+        success: function(data) {
+            console.log('success!!!')
+            console.log(data)
+           
+        },
+        error: function(jqXhr, textStatus, errorMessage){
+        console.log("Error: ", errorMessage);},
+        })
+
+
+  });
+
+
+    </script>
+
+
+{% endblock content %}
+
+

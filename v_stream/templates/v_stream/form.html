@@ -1,0 +1,85 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<main>
+    <div class="sub2-header">
+        <div class="session">
+            <div class="sessions-col-side">
+            </div>
+            <div class="sessions-col-mid">
+                <div class="container">
+                    <div class="title">Session Form</div>
+                    <div class="content">
+                        <form method="POST" action="{% url 'insertrec' %}">
+                            {% csrf_token %}
+                            <div class="user-details">
+                                <div class="input-box">
+                                    <span class="details">Session ID</span>
+                                    <input type="text" value="{{session_id}}" name="session_id" required>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Model Number</span>
+                                    <input type="text" value="{{model_id}}" name="model_id" required>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Date</span>
+                                    <input type="text" value="{{date}}" name="date" required>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Time</span>
+                                    <input type="text" value="{{time}}" name = "time" required>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Investigator's ID</span>
+                                    <input type="text" placeholder="Enter your User ID" name = "invest_id" required>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Investigator</span>
+                                    <input type="text" placeholder="Enter your Name" name="investigator" required>
+                                </div>
+                                
+                                <div class="input-box">
+                                    <span class="details">Country</span>
+                                    <label for="location"></label>
+                                    <select id="location" name="country" required>
+                                        <option value="">Choose your country</option >
+                                        <option value="US">US</option>
+                                        <option value="UK">UK</option>
+                                        <option value="India">India</option>
+                                        <option value="Thailand">Thailand</option>
+                                        
+                                        
+                                    </select>
+
+                                </div>
+                                <div class="input-box">
+                                    <span class="details"></span>
+                                    <!-- <input type="text" placeholder="Enter your User ID" required> -->
+                                </div>  
+                                <div class="input-box">
+                                    <span class="details"></span>
+                                    <!-- <input type="text" placeholder="Enter your User ID" required> -->
+                                </div>            
+                                <div class="button">
+                                    <input type="submit" value="Start Session"> 
+                                </div>                     
+                    
+                            </div>
+                            <p>*Before starting the session, connect into your account and copy your user id from your profile and paste it here.</p>
+                        </form>
+                       
+                    </div>
+                </div>
+            </div>
+
+            <div class="sessions-col-side">
+
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}

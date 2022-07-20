@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>METEN</title>
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script> -->
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+   
+    
+</head>  
+<body>
+
+    {% include 'navbar.html' %}
+
+    {% block content %}
+   
+    <!-- <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script> -->
+    {% endblock %}
+    
+    {% include 'footer.html' %}
+    
+    <script>
+        function getFullscreenElement(){
+            return document.fullscreenElement
+              || document.webkitFullscreenElement
+              || document.mozFullscreenElement
+              || document.msFullscreenElement
+        }
+    
+        function toggleFullscreen(){
+            if(getFullscreenElement()){
+                document.exitFullscreen();
+            } else {
+                document.documentElement.requestFullscreen().catch(console.log);
+            }
+        }
+        document.addEventListener("dblclick", () => {
+                toggleFullscreen();
+        });
+        document.addEventListener("fullscreenchange", () => {
+            console.log("full screen changed!");
+        } );
+    </script> 
+
+</body>
+</html>

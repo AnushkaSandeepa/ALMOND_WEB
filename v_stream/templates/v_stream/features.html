@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="sub2-header">
+    <section class="features">
+        <div class="header-title">
+            <!-- <h1>Features of Almond</h1> -->
+        </div>
+        <div class="header-title">
+            <!-- <h1>Features of Almond</h1> -->
+        </div>
+            
+        <div class="row">
+            <div class="features-col">
+                
+                <div class="sub-titles" id="new-session">New Session</div>
+                <img class="img-block" src="{% static 'images/measurments.jpg' %}">
+                <a href="{% url 'model' %}" class="hero3-btn" id="btn-1">CLICK HERE</a>
+            </div>
+            <div class="features-col">
+
+                <div class="sub-titles" id="session-his">Session History</div>
+                <img class="img-block" src="{% static 'images/history.jpg' %}">
+                <a href="{% url 'history' %}" class="hero3-btn" id="btn-2">CLICK HERE</a>
+            </div>
+            <div class="features-col">
+                
+                <div class="sub-titles" id="tour">Tour</div>
+                <img class="img-block" src="{% static 'images/tour1.jpg' %}">
+                <a href="{% url 'tour' %}" class="hero3-btn" id="btn-3">CLICK HERE</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock content %}
